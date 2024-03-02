@@ -2,6 +2,7 @@
 package com.mycompany.java_crud_mysql;
 
 import java.sql.CallableStatement;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -42,8 +43,22 @@ public class CAlumnos {
     
     
     // métodos
+    
+    /**
+     * insertarAlumno(JTextField paramNombres, JTextField paramApellidos);
+     * 
+     * @param paramNombres
+     * @param paramApellidos
+     * recibe los nombres y apellidos de los textField del formulario
+     * instancia una nueva conexion y crea la consulta.
+     * 
+     * try
+     * se conecta con la bd y hace la consulta
+     * Obtiene nombre y apellido en Strings en los métodos get.
+     * 
+     * ejecuta y lanza un mensaje.
+     */
     public void insertarAlumno(JTextField paramNombres, JTextField paramApellidos) {
-        
          setNombreAlumnos(paramNombres.getText( ) );
          setApellidosAlumnos(paramApellidos.getText( ) );
          
@@ -56,19 +71,24 @@ public class CAlumnos {
             // se conecta con la bd y hace la consulta
              CallableStatement cs = objetoConexion.estableceConexion().prepareCall(consulta);
              
-             // guarda y obtiene nombre y apellido en Strings en los métodos get.
-                // 1 = primer parámetro
-                // 2 = segundo parámetro
+             // Obtiene nombre y apellido en Strings en los métodos get.
+                // 1 = primer parámetro  = ?
+                // 2 = segundo parámetro = ?
              cs.setString(1, getNombresAlumnos( ) );
              cs.setString(2, getApellidosAlumnos( ) );
              
-             // ejecuta
+             // ejecuta y lanza mensaje
              cs.execute( );
+             JOptionPane.showMessageDialog(null, "Se insertó correctamente el alumno");
              
         } catch (Exception e) {
-            
-        }
-         
-    } // insertar alumno's end
+            JOptionPane.showMessageDialog(null, "No se pudo insertar correctamente el alumno. ERROR: "+ e.toString( ) );
+        } //  try-catch's end
+    } // insertar alumno( )'s end
+    
+    
+    
+    
+    
     
 }
