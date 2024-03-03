@@ -20,6 +20,10 @@ public class FormAlumno extends javax.swing.JFrame {
         //comprobando conexion;
         /*CConexion obejtoConexion = new CConexion();
         obejtoConexion.estableceConexion();*/
+        
+        CAlumnos objetoAlumos = new CAlumnos();
+        objetoAlumos.mostrarAlumnos(tbTotalAlumnos);
+        
     }
 
     /**

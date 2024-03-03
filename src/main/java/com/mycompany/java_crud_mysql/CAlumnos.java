@@ -2,8 +2,14 @@
 package com.mycompany.java_crud_mysql;
 
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -87,6 +93,79 @@ public class CAlumnos {
     } // insertar alumno( )'s end
     
     
+    /**
+     * 
+     * @param paramTablaTotalAlumnos 
+     * recibimos un parámetro para la tabla
+     * conectamos con la bd
+     * creamos un modelos para la tabla
+     * ordenamos la tabla 
+     * creamos la variable sql y agregamos los indices con add colum a la variable modelo.( osea en el modelo que creamos)
+     * le asignamos el modelo con setModel
+     * asignamos la consulta a la variable creada anteriormente
+     * 
+     * creamos un array de 3
+     * 
+     * try
+     * realizamos la conexión
+     * ejecutamos el sql
+     * recorremos la tabla mientras tenga uno adelante
+     * while (rs.next( ) ) {                
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+     *
+     * // incorpora este modelo después de recorrer la tabla
+            paramTablaTotalAlumnos.setModel(modelo);
+     * 
+     */
+    public void mostrarAlumnos(JTable paramTablaTotalAlumnos) {
+        
+        CConexion objetoConexion = new CConexion();
+        
+        // creamos un modelo
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        // ordenamos la tabla
+        TableRowSorter<TableModel> OrdenarTabla = new TableRowSorter<TableModel>(modelo);
+        paramTablaTotalAlumnos.setRowSorter(OrdenarTabla);
+        
+        String sql = "";
+        
+        modelo.addColumn("Id");
+        modelo.addColumn("Nombres");
+        modelo.addColumn("Apellidos");
+        
+        paramTablaTotalAlumnos.setModel(modelo);
+        
+        sql = "SELECT * FROM Alumnos;";
+        
+        String datos[ ] = new String[3];
+        Statement st;
+        
+        try {
+            
+            // realizo la conexión
+            st = objetoConexion.estableceConexion().createStatement();
+            // ejucutamos el sql
+            ResultSet rs = st.executeQuery(sql);
+            
+            // recorremos la tabla
+            while (rs.next( ) ) {                
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                
+                modelo.addRow(datos);
+            }
+            
+            // incorpora este modelo después de recorrer la tabla
+            paramTablaTotalAlumnos.setModel(modelo);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudieron mostrar los registros" +e.toString( ) );
+        } // aqui termina el try-catch
+    } // aqui termina el método mostrarAlumnos
     
     
     
