@@ -16,6 +16,7 @@ public class FormAlumno extends javax.swing.JFrame {
     public FormAlumno() {
         
         initComponents();
+        txtId.setEnabled(false); // para no poder modificar eso xd
         
         //comprobando conexion;
         /*CConexion obejtoConexion = new CConexion();
@@ -142,6 +143,11 @@ public class FormAlumno extends javax.swing.JFrame {
 
             }
         ));
+        tbTotalAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbTotalAlumnosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbTotalAlumnos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -190,12 +196,15 @@ public class FormAlumno extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
-        
         CAlumnos objetoAlumno = new CAlumnos();
         objetoAlumno.insertarAlumno(txtNombres, txtApellidos);
-        
+        objetoAlumno.mostrarAlumnos(tbTotalAlumnos);
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void tbTotalAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTotalAlumnosMouseClicked
+        CAlumnos objetoAlumno = new CAlumnos();
+        objetoAlumno.seleccionarAlumnos(tbTotalAlumnos, txtId, txtNombres, txtApellidos);
+    }//GEN-LAST:event_tbTotalAlumnosMouseClicked
 
     /**
      * @param args the command line arguments

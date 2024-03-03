@@ -168,6 +168,41 @@ public class CAlumnos {
     } // aqui termina el método mostrarAlumnos
     
     
+    /**
+     * 
+     * @param paramTablaAlumnos
+     * @param paramId
+     * @param paramNombres
+     * @param paramApellidos 
+     * 
+     * 
+     * recibe los parámetros de la tabla
+     * creamos un contador para obtener la fila que se está seleccionando
+     * int fila = paramTablaAlumnos.getSelectedRow( ); verá que fila está seleccionando
+     * 
+     * try
+     * asignamos a las variables con setText ("la tabla: paramTablaAlumnos".getValueAt(fila,"numero de posición").toString() )
+     * 
+     */
+    public void seleccionarAlumnos(JTable paramTablaAlumnos, JTextField paramId, JTextField paramNombres, JTextField paramApellidos) {
+        
+        try {
+            // contador para obtener la fila que está seleccionando
+            int fila = paramTablaAlumnos.getSelectedRow( );
+            
+            if (fila >= 0) {
+                paramId.setText( (paramTablaAlumnos.getValueAt(fila, 0).toString() ));
+                paramNombres.setText( (paramTablaAlumnos.getValueAt(fila, 1).toString() ));
+                paramApellidos.setText( (paramTablaAlumnos.getValueAt(fila, 2).toString() ));
+                
+                return;
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erros de selección, ERROR "+e.toString( ) );
+        } // aqui termina el try-catch
+    } // aqui termina el método seleccionarAlumnos
+    
     
     
 }

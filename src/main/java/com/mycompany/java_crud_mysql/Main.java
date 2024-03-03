@@ -14,6 +14,7 @@ public class Main {
         
         FormAlumno objetoFormulario = new FormAlumno();
         objetoFormulario.setVisible(true);
+        objetoFormulario.setLocationRelativeTo(null);
         
         
         
