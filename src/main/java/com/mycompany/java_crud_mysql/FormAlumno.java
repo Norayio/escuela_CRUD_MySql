@@ -81,6 +81,11 @@ public class FormAlumno extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -216,6 +221,12 @@ public class FormAlumno extends javax.swing.JFrame {
        objetoAlumno.modificarAlumnos(txtId, txtNombres, txtApellidos);
        objetoAlumno.mostrarAlumnos(tbTotalAlumnos);
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        CAlumnos objetoAlumno = new CAlumnos();
+       objetoAlumno.eliminarAlumnos(txtId);
+       objetoAlumno.mostrarAlumnos(tbTotalAlumnos);
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments

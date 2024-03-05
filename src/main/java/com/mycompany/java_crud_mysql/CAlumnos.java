@@ -256,7 +256,30 @@ public class CAlumnos {
     
     
     
-    
+    public void eliminarAlumnos(JTextField paramCodigo) {
+        
+        setCodigo(Integer.parseInt(paramCodigo.getText( ) ) );
+        
+        CConexion objetoConexion = new CConexion( );
+        
+        String consulta = "DELETE FROM Alumnos WHERE id = ?;";
+        
+        try {
+            
+             // conectamos la bd y preparamos la consulta
+            CallableStatement cs = objetoConexion.estableceConexion( ).prepareCall(consulta);
+            
+            cs.setInt(1, getCodigo( ) );
+            cs.execute( );
+            
+            JOptionPane.showMessageDialog(null, "Se eliminó correctamente el alumno");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el alumno ERROR: "+e.toString( ) );
+        }
+        
+        
+    }
     
     
     
