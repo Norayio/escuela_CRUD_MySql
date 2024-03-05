@@ -3,6 +3,7 @@ package com.mycompany.java_crud_mysql;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -48,7 +49,7 @@ public class CAlumnos {
     }
     
     
-    // métodos
+    // MÉTODOS
     
     /**
      * insertarAlumno(JTextField paramNombres, JTextField paramApellidos);
@@ -77,9 +78,8 @@ public class CAlumnos {
             // se conecta con la bd y hace la consulta
              CallableStatement cs = objetoConexion.estableceConexion().prepareCall(consulta);
              
-             // Obtiene nombre y apellido en Strings en los métodos get.
-                // 1 = primer parámetro  = ?
-                // 2 = segundo parámetro = ?
+             // asignamos en forma de string a los get's
+            //("parámetro de la consulta", donde lo vamos a asignar( ) );
              cs.setString(1, getNombresAlumnos( ) );
              cs.setString(2, getApellidosAlumnos( ) );
              
@@ -93,12 +93,15 @@ public class CAlumnos {
     } // insertar alumno( )'s end
     
     
+    
+    
+    
     /**
      * 
      * @param paramTablaTotalAlumnos 
      * recibimos un parámetro para la tabla
      * conectamos con la bd
-     * creamos un modelos para la tabla
+     * creamos un modelo para la tabla
      * ordenamos la tabla 
      * creamos la variable sql y agregamos los indices con add colum a la variable modelo.( osea en el modelo que creamos)
      * le asignamos el modelo con setModel
@@ -168,6 +171,9 @@ public class CAlumnos {
     } // aqui termina el método mostrarAlumnos
     
     
+    
+    
+    
     /**
      * 
      * @param paramTablaAlumnos
@@ -202,6 +208,58 @@ public class CAlumnos {
             JOptionPane.showMessageDialog(null, "Erros de selección, ERROR "+e.toString( ) );
         } // aqui termina el try-catch
     } // aqui termina el método seleccionarAlumnos
+    
+    
+    
+    
+    
+    
+    /**
+     * 
+     * @param paramCodigo
+     * @param paramNombres
+     * @param paramApellidos 
+     * 
+     * pasamos los parámetros a los set 
+     * 
+     */
+    public void modificarAlumnos(JTextField paramCodigo, JTextField paramNombres, JTextField paramApellidos) {
+        
+        setCodigo(Integer.parseInt(paramCodigo.getText( ) ) );
+        setNombreAlumnos(paramNombres.getText( ) );
+        setApellidosAlumnos(paramNombres.getText( ) );
+        
+        CConexion objetoConexion = new CConexion( );
+        
+        String consulta = "UPDATE Alumnos SET nombres = '?', apellidos = '?' WHERE id = ?;";
+        
+        try {
+            
+            // conectamos la bd y preparamos la consulta
+            CallableStatement cs = objetoConexion.estableceConexion( ).prepareCall(consulta);
+            
+            // asignamos en forma de string a los get's
+            //("parámetro de la consulta", donde lo vamos a asignar( ) );
+            cs.setString(1, getNombresAlumnos( ) );
+            cs.setString(2, getApellidosAlumnos() );
+            cs.setString(3, Integer.toString(getCodigo( ) ));
+            
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Modificación exitosa!");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo modificar/actualizar los datos. ERROR "+e.toString( ) );
+        } // aqui termina el try-catch
+    }// aqui termina el método modificarAlumnos
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
